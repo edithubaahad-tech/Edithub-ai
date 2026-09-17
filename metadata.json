@@ -1,0 +1,6 @@
+{
+  "name": "EditHub AI",
+  "description": "Professional AI video editing app. Create, edit, enhance, and publish videos with smart timeline tools, AI auto-edit, captions, voiceover, and filters.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

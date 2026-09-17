@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Outer Rounded Video Card Badge in 66dp safe zone (24,24 to 84,84) -->
+    <path
+        android:pathData="M34,26 L74,26 A10,10 0 0,1 84,36 L84,72 A10,10 0 0,1 74,82 L34,82 A10,10 0 0,1 24,72 L24,36 A10,10 0 0,1 34,26 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="24"
+                android:startY="26"
+                android:endX="84"
+                android:endY="82"
+                android:type="linear">
+                <item android:color="#3B82F6" android:offset="0.0" />
+                <item android:color="#8B5CF6" android:offset="0.6" />
+                <item android:color="#EC4899" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Inner Filmstrip Top Bar Notches -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,30h6v4h-6z M42,30h6v4h-6z M54,30h6v4h-6z M66,30h6v4h-6z" />
+
+    <!-- Center Play Triangle (Crisp Bold White) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M46,43 L68,55 L46,67 Z" />
+
+    <!-- AI Sparkle Star Top Right (Glowing Cyan/Gold) -->
+    <path
+        android:fillColor="#38BDF8"
+        android:pathData="M76,26 L77.5,31 L82.5,32.5 L77.5,34 L76,39 L74.5,34 L69.5,32.5 L74.5,31 Z" />
+    <path
+        android:fillColor="#FBBF24"
+        android:pathData="M30,73 L31,76 L34,77 L31,78 L30,81 L29,78 L26,77 L29,76 Z" />
+</vector>
