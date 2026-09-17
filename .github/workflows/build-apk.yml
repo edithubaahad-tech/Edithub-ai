@@ -1,53 +1,24 @@
 name: Build Debug APK
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      - uses: actions/setup-java@v4
         with:
-          java-version: '21'
           distribution: 'temurin'
-          
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: 9.3.1
-
+          java-version: '17'
       - name: Generate Debug Keystore
         run: |
-          keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Debug,O=Android,C=US"
-          keytool -genkey -v -keystore app/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Debug,O=Android,C=US"
-          ls -lh *.keystore app/*.keystore
-          
-      - name: Force update wrapper and Build
+          keytool -genkey -v -keystore app/edithub.jks -alias edithub -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Edith, OU=App, O=Edith, L=Pune, S=MH, C=IN"
+      - name: Build APK
         run: |
-          gradle wrapper --gradle-version 9.3.1
           chmod +x gradlew
-          ./gradlew assembleDebug --no-configuration-cache
-          
+          ./gradlew assembleDebug
       - name: Upload APK
-        if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug-apk
+          name: EdithHub-APK
           path: app/build/outputs/apk/debug/app-debug.apk
-          
-      - name: Create Release
-        if: success()
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: debug-apk-build-${{ github.run_number }}
-          name: APK Build ${{ github.run_number }}
-          files: app/build/outputs/apk/debug/app-debug.apk
-          make_latest: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
