@@ -11,10 +11,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - uses: gradle/actions/setup-gradle@v3
-      - name: Generate Debug Keystore
-        run: |
-          rm -f app/edithub.jks
-          keytool -genkey -v -keystore app/edithub.jks -alias edithub -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Edith, OU=App, O=Edith, L=Pune, S=MH, C=IN"
       - name: Build APK
         run: gradle assembleDebug
       - name: Upload APK
