@@ -15,13 +15,16 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Make gradlew executable and build
+      - name: Setup Gradle 8.6
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.6
+      - name: Build APK
         run: |
           if [ -f "./gradlew" ]; then
             chmod +x gradlew
             ./gradlew assembleDebug
           else
-            echo "gradlew not found, generating wrapper"
             gradle wrapper --gradle-version 8.6
             chmod +x gradlew
             ./gradlew assembleDebug
@@ -37,7 +40,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: debug-apk-build-${{ github.run_number }}
-          name: debug-apk-build-${{ github.run_number }}
+          name: APK Build ${{ github.run_number }}
           files: app/build/outputs/apk/debug/app-debug.apk
           make_latest: true
         env:
