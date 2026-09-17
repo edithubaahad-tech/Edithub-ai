@@ -1,8 +1,6 @@
-name: Build Release AAB
-
+name: Build Debug APK
 on:
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,20 +10,11 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-
-      - name: Generate Keystore
-        run: |
-          keytool -genkey -v -keystore app/edithub.jks -alias edithub -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Edith, OU=App, O=Edith, L=Pune, S=MH, C=IN"
-
-      - name: Build Release
-        run: |
-          chmod +x gradlew
-          ./gradlew bundleRelease assembleRelease
-
-      - name: Upload AAB and APK
+      - uses: gradle/actions/setup-gradle@v3
+      - name: Build APK
+        run: gradle assembleDebug
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: EdithHub-Release
-          path: |
-            app/build/outputs/bundle/release/app-release.aab
-            app/build/outputs/apk/release/app-release.apk
+          name: EdithHub-APK
+          path: app/build/outputs/apk/debug/app-debug.apk
