@@ -47,11 +47,12 @@ android {
     }
     debug { signingConfig = signingConfigs.getByName("debugConfig") }
   }
-      compileOptions {
+         compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-        compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-    }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions { jvmTarget = "17" }
 }
