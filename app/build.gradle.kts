@@ -47,5 +47,11 @@ android {
     }
     debug { signingConfig = signingConfigs.getByName("debugConfig") }
   }
-  compileOptions {
-    sourceCompatibility = JavaVersion
+      compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
