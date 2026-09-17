@@ -1,4 +1,4 @@
-name: Build Debug APK
+name: Build Release AAB
 on:
   workflow_dispatch:
 jobs:
@@ -11,10 +11,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - uses: gradle/actions/setup-gradle@v3
-      - name: Build APK
-        run: gradle assembleDebug
-      - name: Upload APK
+      - name: Build AAB
+        run: gradle bundleRelease assembleRelease
+      - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: EdithHub-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: EdithHub-Release
+          path: |
+            app/build/outputs/bundle/release/app-release.aab
+            app/build/outputs/apk/release/app-release.apk
