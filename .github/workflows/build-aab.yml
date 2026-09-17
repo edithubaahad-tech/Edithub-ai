@@ -11,17 +11,20 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - uses: android-actions/setup-android@v3
+      
       - name: Generate Keystore
-        run: keytool -genkey -v -keystore app/edithub.jks -alias edithub -keyalg RSA -keysize 2048 -validity 10000 -storepass Edithub@123 -keypass Edithub@123 -dname "CN=EditHub AI, OU=EditHub, O=EditHub, L=Karjat, ST=Maharashtra, C=IN"
+        run: keytool -genkey -v -keystore app/edithub.jks -alias edithub -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Edith, OU=App, O=Edith, L=Pune, S=MH, C=IN"
+
       - name: Build Release
         run: |
           chmod +x gradlew
-          ./gradlew bundleRelease -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/app/edithub.jks -Pandroid.injected.signing.store.password=Edithub@123 -Pandroid.injected.signing.key.alias=edithub -Pandroid.injected.signing.key.password=Edithub@123
-          ./gradlew assembleRelease -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/app/edithub.jks -Pandroid.injected.signing.store.password=Edithub@123 -Pandroid.injected.signing.key.alias=edithub -Pandroid.injected.signing.key.password=Edithub@123
+          ./gradlew bundleRelease -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/app/edithub.jks -Pandroid.injected.signing.store.password=android -Pandroid.injected.signing.key.alias=edithub -Pandroid.injected.signing.key.password=android
+          ./gradlew assembleRelease -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/app/edithub.jks -Pandroid.injected.signing.store.password=android -Pandroid.injected.signing.key.alias=edithub -Pandroid.injected.signing.key.password=android
+
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: EditHub-Release
+          name: EdithHub-Release
           path: |
             app/build/outputs/bundle/release/app-release.aab
             app/build/outputs/apk/release/app-release.apk
