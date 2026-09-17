@@ -1,3 +1,4 @@
+
 import com.google.gms.googleservices.GoogleServicesPlugin.MissingGoogleServicesStrategy
 
 plugins {
@@ -25,11 +26,10 @@ android {
 
   signingConfigs {
     create("release") {
-      val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
-      storeFile = file(keystorePath)
-      storePassword = System.getenv("STORE_PASSWORD")
-      keyAlias = "upload"
-      keyPassword = System.getenv("KEY_PASSWORD")
+      storeFile = file("edithub.jks")
+      storePassword = "Edithub@123"
+      keyAlias = "edithub"
+      keyPassword = "Edithub@123"
     }
     create("debugConfig") {
       storeFile = file("${rootDir}/debug.keystore")
@@ -45,6 +45,7 @@ android {
       isMinifyEnabled = false
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
       signingConfig = signingConfigs.getByName("release")
+      isDebuggable = false
     }
     debug { signingConfig = signingConfigs.getByName("debugConfig") }
   }
