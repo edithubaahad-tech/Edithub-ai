@@ -11,8 +11,10 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - uses: gradle/actions/setup-gradle@v3
+      - name: Create local.properties
+        run: echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
       - name: Build AAB
-        run: gradle bundleRelease assembleRelease
+        run: ./gradlew bundleRelease assembleRelease
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
